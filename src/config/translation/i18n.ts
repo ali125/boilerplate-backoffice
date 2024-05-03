@@ -29,6 +29,13 @@ export const supportedLanguages: Record<SupportLanguages, SupportLanguagesObj> =
     },
 }
 
+export const createLocale = (value: string, params: { [key: string]: string | number } = {}): string => {
+    Object.keys(params).forEach(item => {
+      value = value.replace(`{${item}}`, params[item].toString());
+    });
+    return value;
+};
+
 const resources: Record<SupportLanguages, ResourceLanguage> = {
     en: {
         translation: translationEn

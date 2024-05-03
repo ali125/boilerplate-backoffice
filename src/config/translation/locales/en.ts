@@ -1,5 +1,67 @@
 const translation = {
-    hello: "Hello"
-}
+  hello: "Hello",
+  auth: {
+    signIn: "sign in",
+    signInDescription: "please enter your information here to view details.",
+    signUp: "sign up",
+    signUpDescription: "please enter your information here to view details.",
+    forgot: "forgot password",
+    forgotDescription: "please enter your information here to view details.",
+  },
+  sidebar: {
+    dashboard: "dashboard",
+    posts: "posts",
+    users: "users",
+    roles: "roles",
+    permissions: "permissions",
+    finance: "finance",
+    faq: "faq",
+    support: "support",
+    settings: "settings",
+  },
+  tableFilter: {
+    column: "column",
+    equal: "equal",
+    include: "include",
+    notEqual: "not equal",
+    or: "or",
+    and: "and",
+    operator: "operator",
+  },
+  general: {
+    filter: "filter",
+    reset: "reset",
+    add: "add",
+    remove: "remove",
+    delete: "delete",
+    value: "value",
+    settings: "settings",
+    save: "save",
+    close: "close",
+  },
+  user: {
+    email: "email",
+    enterEmail: "enter email",
+    password: "password",
+    enterPassword: "enter password",
+  },
+  post: {
+    newPost: "new post",
+    title: "title",
+    slug: "slug",
+    category: "category",
+    description: "description",
+    enterTitle: "enter title",
+    enterDescription: "enter description",
+    selectCategory: "select category",
+  },
+  errors: {
+    dataNotFound: "data not found",
+    required: "please fill out {field} field",
+    emailPattern: "please enter email correctly",
+    minLength: "please enter at least {value} characters",
+    maxLength: "please enter no more than {value} characters",
+  },
+};
 
 export default translation;
