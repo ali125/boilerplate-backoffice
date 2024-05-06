@@ -9,15 +9,17 @@ import SignUp from '@/pages/Authentication/SignUp';
 import NotFound from '@/pages/NotFound';
 import Posts from '@/pages/Posts';
 import Forgot from '@/pages/Authentication/Forgot';
+import Categories from '@/pages/Categories';
 
 const Router: React.FC = () => {
   return (
     <BrowserRouter>
         <Routes>
             <Route path={browserRoutes.home} element={<PrivateRoute />}>
-                <Route element={<MainLayout />}>
+                <Route path={browserRoutes.home} element={<MainLayout />}>
                     <Route path={browserRoutes.dashboard} element={<Dashboard />} />
                     <Route path={browserRoutes.posts} element={<Posts />} />
+                    <Route path={browserRoutes.categories} element={<Categories />} />
                 </Route>
             </Route>
             {/* <Route path={browserRoutes.home} element={<MainLayout />}>

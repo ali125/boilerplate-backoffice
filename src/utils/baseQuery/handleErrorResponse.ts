@@ -1,5 +1,5 @@
 import { BaseQueryApi, FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import handle401 from "./handlers/handle401";
+// import handle401 from "./handlers/handle401";
 import getErrorMessage from "./getErrorMessage";
 import defaultHandler from "./handlers/defaultHandler";
 
@@ -11,7 +11,7 @@ export type Handler = (
 ) => void;
 
 const errorHandlers: Record<number, Handler> = {
-  401: handle401,
+  // 401: handle401,
 };
 
 const handleErrorResponse = (

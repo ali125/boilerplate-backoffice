@@ -31,7 +31,7 @@ const Posts: React.FC = () => {
 
   return (
     <>
-      <PageHead title='Posts' sub="List" />
+      <PageHead title={t("post.posts")} sub={t("general.list")} />
       <Table
         isLoading={isLoading}
         data={data}

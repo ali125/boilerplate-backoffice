@@ -1,6 +1,11 @@
 import React from 'react';
-import MUIButton, { ButtonProps } from '@mui/material/Button';
+import MUIButton, { ButtonProps as MuiButtonProps } from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
+import { CircularProgress } from '@mui/material';
+
+export type ButtonProps = MuiButtonProps & {
+  isLoading?: boolean;
+};
 
 const CustomButton = styled(MUIButton)({
     textTransform: 'capitalize',
@@ -11,9 +16,15 @@ const CustomButton = styled(MUIButton)({
 });
 
 const Button: React.FC<ButtonProps> = (props) => {
+  const { isLoading, disabled, ...resetProps } = props;
   return (
-    <CustomButton variant="contained" {...props} />
+    <CustomButton
+      variant="contained"
+      startIcon={isLoading && <CircularProgress size="1.1rem" />}
+      disabled={disabled || isLoading}
+      {...resetProps}
+    />
   )
 }
 
-export default Button
+export default Button;

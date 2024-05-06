@@ -6,11 +6,12 @@ import Backdrop from '@mui/material/Backdrop';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Close from '@mui/icons-material/Close';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { ModalProps } from './Modal.interface';
 import { modalBodyStyle, modalContainerStyle, modalFooterStyle, modalHeadStyle } from './Styles';
 
-const Modal: React.FC<ModalProps> = ({ id, title, children, footer, open, size = "medium", onClose }) => {
+const Modal: React.FC<ModalProps> = ({ id, title, children, footer, open, size = "medium", isLoading, onClose }) => {
   return (
     <MUIModal
         open={open}
@@ -27,22 +28,30 @@ const Modal: React.FC<ModalProps> = ({ id, title, children, footer, open, size =
     >
         <Fade in={open}>
             <Box sx={modalContainerStyle(size)}>
-                <Box sx={modalHeadStyle}>
-                    <Typography id={`${id}-title`} variant="h6" className='capitalize' component="h2">
-                        {title}
-                    </Typography>
+                {isLoading ? (
+                    <>
+                        <CircularProgress />
+                    </>
+                ) : (
+                    <>
+                        <Box sx={modalHeadStyle}>
+                            <Typography id={`${id}-title`} variant="h6" className='capitalize' component="h2">
+                                {title}
+                            </Typography>
 
-                    <IconButton onClick={onClose}>
-                        <Close />
-                    </IconButton>
-                </Box>
-                <Box sx={modalBodyStyle}>
-                    {children}
-                </Box>
-                {footer && (
-                    <Box sx={modalFooterStyle}>
-                        {footer}
-                    </Box>
+                            <IconButton onClick={onClose}>
+                                <Close />
+                            </IconButton>
+                        </Box>
+                        <Box sx={modalBodyStyle}>
+                            {children}
+                        </Box>
+                        {footer && (
+                            <Box sx={modalFooterStyle}>
+                                {footer}
+                            </Box>
+                        )}
+                    </>
                 )}
             </Box>
         </Fade>

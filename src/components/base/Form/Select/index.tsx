@@ -26,7 +26,7 @@ export type SelectProps = MuiSelectProps & {
 }
 
 const Select: React.FC<SelectProps> = props => {
-  const { label, invalid, errorMessage, className, inputClassName, onChangeValue, type, value, options, onChange, placeholder, ...restProps } = props;
+  const { label, invalid, errorMessage, className, inputClassName, onChangeValue, value, options, onChange, placeholder, ...restProps } = props;
 
   const id = useMemo(() => props.id || props.name || uuidv4(), [props.id, props.name]);
 
@@ -41,7 +41,6 @@ const Select: React.FC<SelectProps> = props => {
       <MuiSelect
         id={id}
         role="textbox"
-        type={type}
         onChange={onChangeHandler}
         className={classNames("rounded-full bg-white", inputClassName)}
         value={value}

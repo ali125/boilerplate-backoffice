@@ -8,7 +8,6 @@ import {
 import customFetchBaseQuery from "./customFetchBaseQuery";
 import handleErrorResponse from "./handleErrorResponse";
 import { logOut, setAuthToken } from "@/redux/authSlice";
-import { createApi } from "@reduxjs/toolkit/query/react";
 
 interface Args extends FetchArgs {
   silent?: boolean;
@@ -26,6 +25,7 @@ const baseQuery: BaseQueryFn<
     if (typeof result.error.status === "number")
       statusCode = result.error.status;
 
+    console.log("sending refresh token statusCode", statusCode);
     if (statusCode === 401) {
       console.log("sending refresh token");
       // send refresh token to get new access token
@@ -56,13 +56,14 @@ const baseQuery: BaseQueryFn<
     if (typeof args !== "string") {
       silent = args?.silent;
     }
-
-    return handleErrorResponse(
-      api,
-      statusCode,
-      (result.error?.data as any)?.data,
-      silent
-    );
+    if (result.error) {
+      return handleErrorResponse(
+        api,
+        statusCode,
+        (result.error?.data as any)?.data,
+        silent
+      );
+    }
   }
 
   return result;

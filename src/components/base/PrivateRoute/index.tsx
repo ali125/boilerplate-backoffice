@@ -19,6 +19,7 @@ const PrivateRoute: React.FC = () => {
             (async () => {
                 try {
                     const response = await refreshToken().unwrap();
+                    console.log("get refresh token in private route")
                     dispatch(setAuthToken({ accessToken: response.accessToken }));
                 } catch (err) {
                     localStorage.removeItem(Storage_Keys.loggedIn);
@@ -31,7 +32,7 @@ const PrivateRoute: React.FC = () => {
     if (isLoading || (storageLoggedIn && storageLoggedIn === "true" && !token)) {
         return <h1>Loading...</h1>
     }
-
+    
     return token ? <Outlet /> : <Navigate to={browserRoutes.signIn} state={{ from: location }} replace />;
     // const location = useLocation();
 

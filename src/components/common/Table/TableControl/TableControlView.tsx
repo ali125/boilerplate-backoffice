@@ -40,7 +40,7 @@ const TableControlView: React.FC<Props> = ({ data, onChange }) => {
       id: head.id.toString(),
       label: (
         <FormControlLabel
-          classes={{ label: "!text-xs text-left", root:"block text-left ml-0" }}
+          classes={{ label: "!text-xs text-left capitalize", root:"block text-left ml-0" }}
           label={head.label}
           className="block"
           control={
