@@ -8,6 +8,10 @@ const translation = {
     forgot: "forgot password",
     forgotDescription: "please enter your information here to view details.",
   },
+  account: {
+    profile: "profile",
+    logout: "logout",
+  },
   sidebar: {
     dashboard: "dashboard",
     posts: "posts",
@@ -47,6 +51,11 @@ const translation = {
     settings: "settings",
     save: "save",
     close: "close",
+
+    author: "author",
+    status: "status",
+    createdAt: "created at",
+    lastUpdate: "last update",
   },
   user: {
     email: "email",
@@ -60,10 +69,6 @@ const translation = {
     title: "title",
     slug: "slug",
     parent: "parent",
-    author: "author",
-    status: "status",
-    createdAt: "created at",
-    lastUpdate: "last update",
     description: "description",
     enterTitle: "enter title",
     enterSlug: "enter slug",
@@ -80,6 +85,11 @@ const translation = {
     enterTitle: "enter title",
     enterDescription: "enter description",
     selectCategory: "select category",
+  },
+  permission: {
+    permissions: "permissions",
+    module: "module",
+    action: "action",
   },
   errors: {
     dataNotFound: "data not found",

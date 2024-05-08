@@ -7,6 +7,7 @@ export type ListPagination<T> = {
   currentPage: number;
   data: T;
   perPage: number;
+  lastPage: number;
   total: number;
 };
 

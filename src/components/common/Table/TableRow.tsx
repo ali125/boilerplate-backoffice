@@ -24,7 +24,7 @@ const TableRow: React.FC<Props> = ({ row, head, disableActions, actions }) => (
             <TableCell
                 key={th.id}
                 align={th.align ? th.align : "center"}
-                className="text-sm py-0"
+                className="text-sm"
             >
                 {th.render
                 ? th.render(row[th.id.toString()], row)

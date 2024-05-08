@@ -20,9 +20,19 @@ const authApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
+    logout: builder.mutation<void, void>({
+      query: () => ({
+        url: `/auth/logout`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRefreshAccessTokenMutation } = authApiSlice;
+export const {
+  useLoginMutation,
+  useRefreshAccessTokenMutation,
+  useLogoutMutation,
+} = authApiSlice;
 
 export default authApiSlice;
