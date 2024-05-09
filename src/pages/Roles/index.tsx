@@ -1,18 +1,18 @@
 import React, { useCallback, useMemo, useState } from 'react'
+import { useConfirm } from 'material-ui-confirm';
 import PageHead from '@/components/common/PageHead'
 import Table from '@/components/common/Table';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import Add from '@mui/icons-material/Add';
 import { useTranslation } from 'react-i18next';
-import CategoryFormModal from './components/RoleFormModal';
+import RoleFormModal from './components/RoleFormModal';
 import { createColumns } from './createColumns';
 import useTableQuery from '@/utils/hooks/UseTableQuery/useTableQuery';
 import { convertQueryToString } from '@/utils/helpers/string';
-import { Category } from '@/@types/category.type';
-import { useConfirm } from 'material-ui-confirm';
 import { createLocale } from '@/config/translation/i18n';
 import { useDeleteRoleMutation, useGetRolesQuery } from '@/redux/apiSlice/rolesSlice';
+import { Role } from '@/@types/role.type';
 
 const Roles: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -24,15 +24,15 @@ const Roles: React.FC = () => {
 
   const queryParam = useMemo(() => convertQueryToString(queryObj), [queryObj]);
 
-  const [deleteCategory, { isLoading: deleteLoading }] = useDeleteRoleMutation();
+  const [deleteRole, { isLoading: deleteLoading }] = useDeleteRoleMutation();
   const { data, isLoading } = useGetRolesQuery({ query: queryParam });
 
-  const handleDeleteCategory = useCallback(async (category: Category) => {
+  const handleDeleteRole = useCallback(async (role: Role) => {
     try {
       await confirm({
-        description: createLocale(t("confirm.deleteDescription"), { field: category.title })
+        description: createLocale(t("confirm.deleteDescription"), { field: role.title })
       })
-      await deleteCategory(category.id);
+      await deleteRole(role.id);
     } catch (err) {
       console.log(err);
     }
@@ -43,7 +43,7 @@ const Roles: React.FC = () => {
       id: 'edit',
       label: t('general.edit'),
       icon: <Edit className='w-4 h-4' />,
-      onClick: (res: Category) => {
+      onClick: (res: Role) => {
         setSelected(res.id);
         setIsOpen(true);
       }
@@ -52,7 +52,7 @@ const Roles: React.FC = () => {
       id: 'delete',
       label: t('general.delete'),
       icon: <Delete className='w-4 h-4' />,
-      onClick: (res: Category) => handleDeleteCategory(res)
+      onClick: (res: Role) => handleDeleteRole(res)
     },
   ], []);
 
@@ -78,7 +78,7 @@ const Roles: React.FC = () => {
           }
         ]}
       />
-      <CategoryFormModal open={isOpen} id={selected} onClose={handleClose} />
+      <RoleFormModal open={isOpen} id={selected} onClose={handleClose} />
     </>
   )
 }
