@@ -1,6 +1,6 @@
-import { UserRelation } from "./user.type";
+import { UserBaseType } from "./user.type";
 
-export type Category = {
+export type CategoryBaseType = {
   id: string;
   title: string;
   slug: string;
@@ -11,7 +11,10 @@ export type Category = {
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
-  user: UserRelation;
+};
+
+export type Category = CategoryBaseType & {
+  user: UserBaseType;
   parent: Category | null;
 };
 

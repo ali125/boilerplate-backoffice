@@ -1,17 +1,20 @@
-import { Permission } from "./permission.type";
-import { UserRelation } from "./user.type";
+import { PermissionBaseType } from "./permission.type";
+import { UserBaseType } from "./user.type";
 
-export type Role = {
+export type RoleBaseType = {
   id: string;
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
   title: string;
   description: string | null;
-  permissions: Permission[];
   superAdmin: false;
   userId: string;
-  user: UserRelation;
+};
+
+export type Role = RoleBaseType & {
+  permissions: PermissionBaseType[];
+  user: UserBaseType;
 };
 
 export type RoleFormValues = {

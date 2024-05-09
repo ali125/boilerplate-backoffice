@@ -1,4 +1,4 @@
-export type Permission = {
+export type PermissionBaseType = {
   id: string;
   createdAt: string;
   updatedAt: string;
