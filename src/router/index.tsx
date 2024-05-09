@@ -11,6 +11,7 @@ import Posts from '@/pages/Posts';
 import Forgot from '@/pages/Authentication/Forgot';
 import Categories from '@/pages/Categories';
 import Permissions from '@/pages/Permissons';
+import Roles from '@/pages/Roles';
 
 const Router: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const Router: React.FC = () => {
                     <Route path={browserRoutes.dashboard} element={<Dashboard />} />
                     <Route path={browserRoutes.posts} element={<Posts />} />
                     <Route path={browserRoutes.categories} element={<Categories />} />
+                    <Route path={browserRoutes.roles} element={<Roles />} />
                     <Route path={browserRoutes.permissions} element={<Permissions />} />
                 </Route>
             </Route>

@@ -1,3 +1,5 @@
+import { UserRelation } from "./user.type";
+
 export type Category = {
   id: string;
   title: string;
@@ -9,18 +11,7 @@ export type Category = {
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
-  user: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    mobile: string | null;
-    status: string;
-    blockedAt: string | null;
-    createdAt: string;
-    updatedAt: string;
-    deletedAt: string | null;
-  };
+  user: UserRelation;
   parent: Category | null;
 };
 

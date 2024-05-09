@@ -18,12 +18,6 @@ export const createColumns: Props = (t) => [
     sortable: true
   },
   {
-    id: "slug",
-    label: t("category.slug"),
-    align: "left",
-    sortable: true
-  },
-  {
     id: "description",
     label: t("general.description"),
     align: "left",
@@ -31,24 +25,11 @@ export const createColumns: Props = (t) => [
     hidden: true
   },
   {
-    id: "parent",
-    label: t("category.parent"),
-    align: "left",
-    sortable: true,
-    render: (parent) => parent?.title
-  },
-  {
     id: "user",
     label: t("general.author"),
     align: "left",
     sortable: true,
-    render: (user) => user.fullName
-  },
-  {
-    id: "status",
-    label: t("general.status"),
-    align: "center",
-    sortable: true,
+    render: (user) => user?.fullName
   },
   {
     id: "createdAt",

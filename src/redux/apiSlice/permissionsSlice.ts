@@ -18,6 +18,26 @@ const permissionApiSlice = apiSlice.injectEndpoints({
         })),
       ],
     }),
+    getPermissionsAll: builder.query<any, void>({
+      query: () => `admin/permissions/all`,
+      providesTags: [{ type: TagTypes.PERMISSIONS, id: "ALL" }],
+      transformResponse: (result: any[]) => {
+        return (result || []).reduce((acc, item) => {
+          const updateAcc = [...acc];
+          const indx = updateAcc.findIndex((i) => i.id === item.module);
+          if (indx === -1) {
+            updateAcc.push({
+              id: item.module,
+              label: item.module,
+              data: [item],
+            });
+          } else {
+            updateAcc[indx].data.push(item);
+          }
+          return updateAcc;
+        }, []);
+      },
+    }),
     getPermission: builder.query<Permission, { id: string }>({
       query: ({ id }) => `admin/permissions/${id}`,
       providesTags: (result) => [
@@ -58,6 +78,7 @@ const permissionApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetPermissionsQuery,
+  useGetPermissionsAllQuery,
   useGetPermissionQuery,
   useCreatePermissionMutation,
   useUpdatePermissionMutation,

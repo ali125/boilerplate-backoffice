@@ -41,10 +41,10 @@ const PostFormModal: React.FC<Props> = ({ open, onClose }) => {
                 <InputController
                     control={control}
                     name="title"
-                    label={t("post.title")}
-                    placeholder={t("post.enterTitle")}
+                    label={t("general.title")}
+                    placeholder={t("general.enterTitle")}
                     rules={{
-                        required: createLocale(t("errors.required"), { field: t("post.title") }),
+                        required: createLocale(t("errors.required"), { field: t("general.title") }),
                         minLength: {
                             message: createLocale(t("errors.minLength"), { value: 5 }),
                             value: 5

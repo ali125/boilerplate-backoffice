@@ -52,10 +52,19 @@ const translation = {
     save: "save",
     close: "close",
 
+    title: "title",
+    description: "description",
+    enterTitle: "enter title",
+    enterDescription: "enter description",
     author: "author",
     status: "status",
     createdAt: "created at",
     lastUpdate: "last update",
+  },
+  role: {
+    roles: "roles",
+    newRole: "new role",
+    superAdmin: "super admin",
   },
   user: {
     email: "email",
@@ -66,11 +75,8 @@ const translation = {
   category: {
     categories: "categories",
     newCategory: "new category",
-    title: "title",
     slug: "slug",
     parent: "parent",
-    description: "description",
-    enterTitle: "enter title",
     enterSlug: "enter slug",
     enterDescription: "enter description",
     selectParent: "select parent",
@@ -78,11 +84,8 @@ const translation = {
   post: {
     posts: "posts",
     newPost: "new post",
-    title: "title",
     slug: "slug",
     category: "category",
-    description: "description",
-    enterTitle: "enter title",
     enterDescription: "enter description",
     selectCategory: "select category",
   },

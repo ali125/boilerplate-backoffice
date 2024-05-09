@@ -13,7 +13,7 @@ export const createColumns: Props = (t) => [
     },
     {
       id: "title",
-      label: t("post.title"),
+      label: t("general.title"),
       align: "left",
       sortable: true
     },
@@ -25,7 +25,7 @@ export const createColumns: Props = (t) => [
     },
     {
       id: "description",
-      label: t("post.description"),
+      label: t("general.description"),
       align: "left",
       sortable: true
     }

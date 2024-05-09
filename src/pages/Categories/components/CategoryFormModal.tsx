@@ -93,10 +93,10 @@ const CategoryFormModal: React.FC<Props> = ({ open, id, onClose }) => {
                 <InputController
                     control={control}
                     name="title"
-                    label={t("category.title")}
-                    placeholder={t("category.enterTitle")}
+                    label={t("general.title")}
+                    placeholder={t("general.enterTitle")}
                     rules={{
-                        required: createLocale(t("errors.required"), { field: t("category.title") }),
+                        required: createLocale(t("errors.required"), { field: t("general.title") }),
                         minLength: {
                             message: createLocale(t("errors.minLength"), { value: 5 }),
                             value: 5
@@ -130,8 +130,8 @@ const CategoryFormModal: React.FC<Props> = ({ open, id, onClose }) => {
                     rows={4}
                     control={control}
                     name="description"
-                    label={t("category.description")}
-                    placeholder={t("category.enterDescription")}
+                    label={t("general.description")}
+                    placeholder={t("general.enterDescription")}
                 />
                 
             </form>
