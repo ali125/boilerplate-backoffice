@@ -16,6 +16,7 @@ const translation = {
     dashboard: "dashboard",
     posts: "posts",
     categories: "categories",
+    tags: "tags",
     users: "users",
     roles: "roles",
     permissions: "permissions",
@@ -93,6 +94,13 @@ const translation = {
     enterSlug: "enter slug",
     enterDescription: "enter description",
     selectParent: "select parent",
+  },
+  tag: {
+    tags: "tags",
+    newTag: "new tag",
+    slug: "slug",
+    enterSlug: "enter slug",
+    enterDescription: "enter description",
   },
   post: {
     posts: "posts",

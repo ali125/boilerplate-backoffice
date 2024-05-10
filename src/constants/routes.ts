@@ -3,6 +3,7 @@ enum browserRoutes {
   dashboard = "/dashboard",
   posts = "/posts",
   categories = "/categories",
+  tags = "/tags",
   users = "/users",
   roles = "/roles",
   permissions = "/permissions",

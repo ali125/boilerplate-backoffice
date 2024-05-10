@@ -51,6 +51,7 @@ const SidebarLinks = [
     LibraryBooksIcon,
     browserRoutes.categories
   ),
+  createMenuItem("tags", "sidebar.tags", LibraryBooksIcon, browserRoutes.tags),
   createMenuItem("users", "sidebar.users", GroupsIcon, browserRoutes.users),
   createMenuItem(
     "roles",
