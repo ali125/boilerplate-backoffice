@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { browserRoutes } from '@/constants/routes';
 import { useAppSelector } from '@/redux/hooks';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { Storage_Keys } from '@/config/app.config';
-import { useRefreshAccessTokenMutation } from '@/redux/apiSlice/authSlice';
+import { useLazyGetUserRoleQuery, useRefreshAccessTokenMutation } from '@/redux/apiSlice/authSlice';
 import { useDispatch } from 'react-redux';
 import { setAuthToken } from '@/redux/authSlice';
+import { AbilityBuilder } from '@casl/ability';
+import { AbilityContext } from '@/utils/providers/CanAbilityProvider';
 
 const PrivateRoute: React.FC = () => {
     const location = useLocation();
@@ -13,13 +15,14 @@ const PrivateRoute: React.FC = () => {
     const token = useAppSelector(state => state.auth.accessToken);
     const dispatch = useDispatch();
     const [refreshToken, { isLoading }] = useRefreshAccessTokenMutation();
-
+    const [getUerRole, { isLoading: isRoleLoading }] = useLazyGetUserRoleQuery();
+    const ability = useContext(AbilityContext);
+    
     useEffect(() => {
         if (!token) {
             (async () => {
                 try {
                     const response = await refreshToken().unwrap();
-                    console.log("get refresh token in private route")
                     dispatch(setAuthToken({ accessToken: response.accessToken }));
                 } catch (err) {
                     localStorage.removeItem(Storage_Keys.loggedIn);
@@ -29,7 +32,32 @@ const PrivateRoute: React.FC = () => {
         }
     }, [token]);
 
-    if (isLoading || (storageLoggedIn && storageLoggedIn === "true" && !token)) {
+    useEffect(() => {
+        if (token) {
+            (async () => {
+                try {
+                    const role = await getUerRole().unwrap();
+                    const { can, rules } = new AbilityBuilder(() => ability);
+                    if (role) {
+                        if (role.superAdmin) {
+                            can('manage', 'all');
+                        } else {
+                            role.permissions.forEach((permission) => {
+                                can(permission.action, permission.module);
+                            })
+                        }
+                        ability.update(rules);
+                    }
+                    
+
+                } catch (err) {
+                    console.log(err);
+                }
+            })()
+        }
+    }, [token]);
+
+    if (isLoading  || isRoleLoading || (storageLoggedIn && storageLoggedIn === "true" && !token)) {
         return <h1>Loading...</h1>
     }
     

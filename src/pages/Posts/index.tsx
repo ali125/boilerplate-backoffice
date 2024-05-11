@@ -21,6 +21,7 @@ const actions = [
 
 const Posts: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const { t } = useTranslation();
 
   const queryObj = useTableQuery();

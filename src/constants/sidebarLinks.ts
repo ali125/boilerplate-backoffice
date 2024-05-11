@@ -9,12 +9,14 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import SupportIcon from "@mui/icons-material/Support";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { browserRoutes } from "./routes";
+import { PermissionModules } from "@/@types/permission.type";
 
 export type SidebarMenuItem = {
   id: string;
   label: string;
   icon: SvgIconComponent | null;
   path: string | null;
+  isPublic: boolean;
   children?: SidebarMenuItem[];
 };
 
@@ -23,66 +25,94 @@ export const createMenuItem = (
   label: SidebarMenuItem["label"],
   icon: SidebarMenuItem["icon"],
   path: SidebarMenuItem["path"],
+  isPublic: SidebarMenuItem["isPublic"],
   children?: SidebarMenuItem["children"]
 ) => ({
   id,
   label,
   icon,
   path,
+  isPublic,
   children,
 });
 
 const SidebarLinks = [
   createMenuItem(
-    "dashboard",
+    "Dashboard",
     "sidebar.dashboard",
     SpeedIcon,
-    browserRoutes.dashboard
+    browserRoutes.dashboard,
+    true
   ),
   createMenuItem(
-    "posts",
+    PermissionModules.Post,
     "sidebar.posts",
     LibraryBooksIcon,
-    browserRoutes.posts
+    browserRoutes.posts,
+    false
   ),
   createMenuItem(
-    "categories",
+    PermissionModules.Category,
     "sidebar.categories",
     LibraryBooksIcon,
-    browserRoutes.categories
+    browserRoutes.categories,
+    false
   ),
-  createMenuItem("tags", "sidebar.tags", LibraryBooksIcon, browserRoutes.tags),
-  createMenuItem("users", "sidebar.users", GroupsIcon, browserRoutes.users),
   createMenuItem(
-    "roles",
+    PermissionModules.Tag,
+    "sidebar.tags",
+    LibraryBooksIcon,
+    browserRoutes.tags,
+    false
+  ),
+  createMenuItem(
+    PermissionModules.User,
+    "sidebar.users",
+    GroupsIcon,
+    browserRoutes.users,
+    false
+  ),
+  createMenuItem(
+    PermissionModules.Role,
     "sidebar.roles",
     AccessibilityIcon,
-    browserRoutes.roles
+    browserRoutes.roles,
+    false
   ),
   createMenuItem(
-    "permissions",
+    PermissionModules.Permission,
     "sidebar.permissions",
     SecurityIcon,
-    browserRoutes.permissions
+    browserRoutes.permissions,
+    false
   ),
   createMenuItem(
-    "finance",
+    "Finance",
     "sidebar.finance",
     AccountBalanceWalletIcon,
-    browserRoutes.finance
+    browserRoutes.finance,
+    true
   ),
-  createMenuItem("faq", "sidebar.faq", HelpOutlineIcon, browserRoutes.faq),
   createMenuItem(
-    "support",
+    "Faq",
+    "sidebar.faq",
+    HelpOutlineIcon,
+    browserRoutes.faq,
+    true
+  ),
+  createMenuItem(
+    "Support",
     "sidebar.support",
     SupportIcon,
-    browserRoutes.support
+    browserRoutes.support,
+    true
   ),
   createMenuItem(
-    "settings",
+    "Settings",
     "sidebar.settings",
     SettingsIcon,
-    browserRoutes.settings
+    browserRoutes.settings,
+    true
   ),
 ];
 

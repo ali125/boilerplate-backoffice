@@ -6,13 +6,16 @@ import store from './redux/store.ts'
 import "./index.css";
 import MUIProvider from './utils/providers/MUIProvider.tsx'
 import ConfirmProvider from './utils/providers/ConfirmProvider.tsx'
+import AbilityContextProvider from './utils/providers/CanAbilityProvider.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
       <MUIProvider>
         <ConfirmProvider>
-          <App />
+          <AbilityContextProvider>
+            <App />
+          </AbilityContextProvider>
         </ConfirmProvider>
       </MUIProvider>
     </Provider>

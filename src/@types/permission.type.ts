@@ -16,6 +16,15 @@ export enum PermissionActions {
   Delete = "delete",
 }
 
+export enum PermissionModules {
+  Post = "Post",
+  Category = "Category",
+  Tag = "Tag",
+  User = "User",
+  Role = "Role",
+  Permission = "Permission",
+}
+
 export type PermissionFormValues = {
   module: string;
   action: PermissionActions;

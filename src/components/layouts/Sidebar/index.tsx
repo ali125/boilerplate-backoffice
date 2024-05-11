@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
@@ -8,11 +8,22 @@ import SidebarLinks from '@/constants/sidebarLinks';
 import LogoImage from "@/assets/images/logo-image.png";
 import projectConfig from '@/config/projectManifest';
 import classNames from 'classnames';
+import { useAbility } from '@casl/react';
+import { AbilityContext } from '@/utils/providers/CanAbilityProvider';
+import { PermissionActions } from '@/@types/permission.type';
 
 const Sidebar: React.FC = () => {
   const { t } = useTranslation();
+  const ability = useAbility(AbilityContext);
+
+  const permittedLinks = useMemo(() => {
+    return SidebarLinks.filter((link) => {
+      return ability.can(PermissionActions.Manage, link.id) || ability.can(PermissionActions.Read, link.id) || link.isPublic;
+    });
+  }, [ability]);
+
   return (
-    <aside className='px-6 w-64 bg-white min-h-[100vh]'>
+    <aside className='px-6 w-64 bg-white min-h-[100vh] sticky h-full top-0'>
       <section className='p-4 h-24'>
         <div className='flex items-end content-end gap-3 h-full '>
           <Image src={LogoImage} className='h-10' />
@@ -21,7 +32,7 @@ const Sidebar: React.FC = () => {
       </section>
       <nav>
         <ul>
-          {SidebarLinks.map((item) => (
+          {permittedLinks.map((item) => (
             <li key={item.id}>
               {item.path ? (
                 <NavLink

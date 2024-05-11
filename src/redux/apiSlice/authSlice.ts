@@ -2,6 +2,7 @@ import {
   RefreshTokenResponse,
   SignInRequest,
   SignInResponse,
+  UserRoleResponse,
 } from "@/@types/auth.type";
 import apiSlice from ".";
 
@@ -20,6 +21,9 @@ const authApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
+    getUserRole: builder.query<UserRoleResponse, void>({
+      query: () => "/auth/role",
+    }),
     logout: builder.mutation<void, void>({
       query: () => ({
         url: `/auth/logout`,
@@ -33,6 +37,7 @@ export const {
   useLoginMutation,
   useRefreshAccessTokenMutation,
   useLogoutMutation,
+  useLazyGetUserRoleQuery,
 } = authApiSlice;
 
 export default authApiSlice;
