@@ -11,7 +11,7 @@ interface Props {
 const AccessRoute: React.FC<Props> = ({ Component, module }) => {
     const ability = useAbility(AbilityContext);
 
-    if (ability.can(PermissionActions.Read, module) || ability.can(PermissionActions.Read, module)) {
+    if (ability.can(PermissionActions.Read, module)) {
         return <Component />;
     }
     
