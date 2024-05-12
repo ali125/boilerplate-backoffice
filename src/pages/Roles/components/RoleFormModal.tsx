@@ -12,7 +12,6 @@ import RoleInformation from './RoleInformation';
 import RolePermissions from './RolePermissions';
 
 type Props = {
-    open: boolean,
     id?: string | null;
     onClose: () => void,
 }
@@ -30,7 +29,7 @@ const TabList = [
     },
 ];
 
-const RoleFormModal: React.FC<Props> = ({ open, id, onClose }) => {
+const RoleFormModal: React.FC<Props> = ({ id, onClose }) => {
     const [selectedPermissionIds, setSelectedPermissionIds] = useState<string[]>([]);
     const [selectedTab, setSelectedTab] = useState<number>(TAB_TYPE.INFO);
     const { t } = useTranslation();
@@ -77,8 +76,8 @@ const RoleFormModal: React.FC<Props> = ({ open, id, onClose }) => {
 
     return (
         <Modal
+            open
             title={t("role.newRole")}
-            open={open}
             isLoading={isLoading}
             footer={(
                 <>

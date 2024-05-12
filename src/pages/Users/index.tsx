@@ -13,10 +13,15 @@ import { convertQueryToString } from '@/utils/helpers/string';
 import { createLocale } from '@/config/translation/i18n';
 import { useDeleteUserMutation, useGetUsersQuery } from '@/redux/apiSlice/usersSlice';
 import { UserItem } from '@/@types/user.type';
+import { useAbility } from '@casl/react';
+import { AbilityContext } from '@/utils/providers/CanAbilityProvider';
+import { PermissionActions, PermissionModules } from '@/@types/permission.type';
 
 const Users: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<string | null>(null);
+
+  const ability = useAbility(AbilityContext);
   const { t } = useTranslation();
 
   const confirm = useConfirm();
@@ -27,7 +32,7 @@ const Users: React.FC = () => {
   const [deleteUser, { isLoading: deleteLoading }] = useDeleteUserMutation();
   const { data, isLoading } = useGetUsersQuery({ query: queryParam });
 
-  const handleDeleteUser = useCallback(async (user: UserItem) => {
+  const handleDelete = useCallback(async (user: UserItem) => {
     try {
       await confirm({
         description: createLocale(t("confirm.deleteDescription"), { field: user.fullName })
@@ -38,28 +43,48 @@ const Users: React.FC = () => {
     }
   }, []);
 
-  const actions = useMemo(() => [
-    {
-      id: 'edit',
-      label: t('general.edit'),
-      icon: <Edit className='w-4 h-4' />,
-      onClick: (res: UserItem) => {
-        setSelected(res.id);
-        setIsOpen(true);
-      }
-    },
-    {
-      id: 'delete',
-      label: t('general.delete'),
-      icon: <Delete className='w-4 h-4' />,
-      onClick: (res: UserItem) => handleDeleteUser(res)
-    },
-  ], []);
-
   const handleClose = useCallback(() => {
     setSelected(null);
     setIsOpen(false);
   }, []);
+
+  const actions = useMemo(() => {
+    const actionList = [];
+    if (ability.can(PermissionActions.Update, PermissionModules.User)) {
+      actionList.push({
+        id: 'edit',
+        label: t('general.edit'),
+        icon: <Edit className='w-4 h-4' />,
+        onClick: (res: UserItem) => {
+          setSelected(res.id);
+          setIsOpen(true);
+        }
+      });
+    }
+    if (ability.can(PermissionActions.Delete, PermissionModules.User)) {
+      actionList.push({
+        id: 'delete',
+        label: t('general.delete'),
+        icon: <Delete className='w-4 h-4' />,
+        onClick: (res: UserItem) => handleDelete(res)
+      });
+    }
+    return actionList;
+  }, [ability]);
+
+  const extraControl = useMemo(() => {
+    if (ability.can(PermissionActions.Create, PermissionModules.User)) {
+      return [
+        {
+          id: "add",
+          label: t("general.add"),
+          icon: <Add />,
+          onClick: () => setIsOpen(true)
+        }
+      ];
+    }
+    return [];
+  }, [ability]);
 
   return (
     <>
@@ -69,16 +94,9 @@ const Users: React.FC = () => {
         data={data}
         head={createColumns(t)}
         actions={actions}
-        extraControl={[
-          {
-            id: "add",
-            label: t("general.add"),
-            icon: <Add />,
-            onClick: () => setIsOpen(true)
-          }
-        ]}
+        extraControl={extraControl}
       />
-      <UserFormModal open={isOpen} id={selected} onClose={handleClose} />
+      {isOpen && <UserFormModal id={selected} onClose={handleClose} />}
     </>
   )
 }

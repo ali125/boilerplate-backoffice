@@ -32,7 +32,7 @@ const Roles: React.FC = () => {
   const [deleteRole, { isLoading: deleteLoading }] = useDeleteRoleMutation();
   const { data, isLoading } = useGetRolesQuery({ query: queryParam });
 
-  const handleDeleteRole = useCallback(async (role: Role) => {
+  const handleDelete = useCallback(async (role: Role) => {
     try {
       await confirm({
         description: createLocale(t("confirm.deleteDescription"), { field: role.title })
@@ -41,6 +41,11 @@ const Roles: React.FC = () => {
     } catch (err) {
       console.log(err);
     }
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setSelected(null);
+    setIsOpen(false);
   }, []);
 
   const actions = useMemo(() => {
@@ -61,16 +66,11 @@ const Roles: React.FC = () => {
         id: 'delete',
         label: t('general.delete'),
         icon: <Delete className='w-4 h-4' />,
-        onClick: (res: Role) => handleDeleteRole(res)
+        onClick: (res: Role) => handleDelete(res)
       });
     }
     return actionList;
   }, [ability]);
-
-  const handleClose = useCallback(() => {
-    setSelected(null);
-    setIsOpen(false);
-  }, []);
 
   const extraControl = useMemo(() => {
     if (ability.can(PermissionActions.Create, PermissionModules.Role)) {
@@ -96,7 +96,7 @@ const Roles: React.FC = () => {
         actions={actions}
         extraControl={extraControl}
       />
-      <RoleFormModal open={isOpen} id={selected} onClose={handleClose} />
+      {isOpen && <RoleFormModal id={selected} onClose={handleClose} />}
     </>
   )
 }

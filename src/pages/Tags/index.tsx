@@ -13,10 +13,15 @@ import { useDeleteTagMutation, useGetTagsQuery } from '@/redux/apiSlice/tagsSlic
 import { useConfirm } from 'material-ui-confirm';
 import { createLocale } from '@/config/translation/i18n';
 import { Tag } from '@/@types/tag.type';
+import { useAbility } from '@casl/react';
+import { AbilityContext } from '@/utils/providers/CanAbilityProvider';
+import { PermissionActions, PermissionModules } from '@/@types/permission.type';
 
 const Tags: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<string | null>(null);
+
+  const ability = useAbility(AbilityContext);
   const { t } = useTranslation();
 
   const confirm = useConfirm();
@@ -27,7 +32,7 @@ const Tags: React.FC = () => {
   const [deleteTag, { isLoading: deleteLoading }] = useDeleteTagMutation();
   const { data, isLoading } = useGetTagsQuery({ query: queryParam });
 
-  const handleDeleteTag = useCallback(async (tag: Tag) => {
+  const handleDelete = useCallback(async (tag: Tag) => {
     try {
       await confirm({
         description: createLocale(t("confirm.deleteDescription"), { field: tag.title })
@@ -38,28 +43,48 @@ const Tags: React.FC = () => {
     }
   }, []);
 
-  const actions = useMemo(() => [
-    {
-      id: 'edit',
-      label: t('general.edit'),
-      icon: <Edit className='w-4 h-4' />,
-      onClick: (res: Tag) => {
-        setSelected(res.id);
-        setIsOpen(true);
-      }
-    },
-    {
-      id: 'delete',
-      label: t('general.delete'),
-      icon: <Delete className='w-4 h-4' />,
-      onClick: (res: Tag) => handleDeleteTag(res)
-    },
-  ], []);
-
   const handleClose = useCallback(() => {
     setSelected(null);
     setIsOpen(false);
   }, []);
+
+  const actions = useMemo(() => {
+    const actionList = [];
+    if (ability.can(PermissionActions.Update, PermissionModules.Tag)) {
+      actionList.push({
+        id: 'edit',
+        label: t('general.edit'),
+        icon: <Edit className='w-4 h-4' />,
+        onClick: (res: Tag) => {
+          setSelected(res.id);
+          setIsOpen(true);
+        }
+      });
+    }
+    if (ability.can(PermissionActions.Delete, PermissionModules.Tag)) {
+      actionList.push({
+        id: 'delete',
+        label: t('general.delete'),
+        icon: <Delete className='w-4 h-4' />,
+        onClick: (res: Tag) => handleDelete(res)
+      });
+    }
+    return actionList;
+  }, [ability]);
+
+  const extraControl = useMemo(() => {
+    if (ability.can(PermissionActions.Create, PermissionModules.Tag)) {
+      return [
+        {
+          id: "add",
+          label: t("general.add"),
+          icon: <Add />,
+          onClick: () => setIsOpen(true)
+        }
+      ];
+    }
+    return [];
+  }, [ability]);
 
   return (
     <>
@@ -69,16 +94,9 @@ const Tags: React.FC = () => {
         data={data}
         head={createColumns(t)}
         actions={actions}
-        extraControl={[
-          {
-            id: "add",
-            label: t("general.add"),
-            icon: <Add />,
-            onClick: () => setIsOpen(true)
-          }
-        ]}
+        extraControl={extraControl}
       />
-      <TagFormModal open={isOpen} id={selected} onClose={handleClose} />
+      {isOpen && <TagFormModal id={selected} onClose={handleClose} />}
     </>
   )
 }

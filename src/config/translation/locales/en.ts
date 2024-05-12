@@ -53,6 +53,7 @@ const translation = {
     save: "save",
     close: "close",
 
+    image: "image",
     title: "title",
     description: "description",
     enterTitle: "enter title",
@@ -105,15 +106,23 @@ const translation = {
   post: {
     posts: "posts",
     newPost: "new post",
+    editPost: "edit post",
     slug: "slug",
     category: "category",
-    enterDescription: "enter description",
     selectCategory: "select category",
+    tag: "tag",
+    selectTag: "select tag",
+    enterDescription: "enter description",
   },
   permission: {
     permissions: "permissions",
     module: "module",
     action: "action",
+  },
+  fileSelector: {
+    selectFile: "select file",
+    oneFileSelected: "1 file selected",
+    multiFileSelected: "{length} files selected",
   },
   errors: {
     dataNotFound: "data not found",

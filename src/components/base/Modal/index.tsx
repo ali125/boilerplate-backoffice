@@ -44,7 +44,7 @@ const Modal: React.FC<ModalProps> = ({ id, title, children, footer, open, size =
                             </IconButton>
                         </Box>
                         <Box sx={modalBodyStyle}>
-                            {children}
+                            {open && children}
                         </Box>
                         {footer && (
                             <Box sx={modalFooterStyle}>

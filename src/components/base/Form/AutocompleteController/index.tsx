@@ -16,17 +16,19 @@ const AutocompleteController: React.FunctionComponent<AutocompleteControllerProp
       name={name}
       rules={rules}
       defaultValue={defaultValue}
-      render={({ field: { onChange, onBlur, value }, fieldState: { invalid, error } }) => (
-        <Autocomplete
-          {...props}
-          id={name}
-          onBlur={onBlur}
-          onChangeValue={onChange}
-          errorMessage={invalid ? (error as any).message : ""}
-          invalid={invalid}
-          value={value}
-        />
-      )}
+      render={({ field: { onChange, onBlur, value }, fieldState: { invalid, error } }) => {
+        return (
+          <Autocomplete
+            {...props}
+            id={name}
+            onBlur={onBlur}
+            onChange={onChange}
+            errorMessage={invalid ? (error as any).message : ""}
+            invalid={invalid}
+            value={value}
+          />
+        )
+      }}
     />
   );
 };

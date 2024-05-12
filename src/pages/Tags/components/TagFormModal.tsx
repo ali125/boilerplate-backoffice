@@ -9,12 +9,11 @@ import { TagFormValues } from '@/@types/tag.type';
 import { useCreateTagMutation, useGetTagQuery, useUpdateTagMutation } from '@/redux/apiSlice/tagsSlice';
 
 type Props = {
-    open: boolean,
     id?: string | null;
     onClose: () => void,
 }
 
-const TagFormModal: React.FC<Props> = ({ open, id, onClose }) => {
+const TagFormModal: React.FC<Props> = ({ id, onClose }) => {
     const { t } = useTranslation();
     
     const { data, isLoading } = useGetTagQuery({ id: id! }, { skip: !id });
@@ -48,8 +47,8 @@ const TagFormModal: React.FC<Props> = ({ open, id, onClose }) => {
 
     return (
         <Modal
+            open
             title={t("tag.newTag")}
-            open={open}
             isLoading={isLoading}
             footer={(
                 <>

@@ -25,7 +25,6 @@ const baseQuery: BaseQueryFn<
     if (typeof result.error.status === "number")
       statusCode = result.error.status;
 
-    console.log("sending refresh token statusCode", statusCode);
     if (statusCode === 401) {
       console.log("sending refresh token");
       // send refresh token to get new access token

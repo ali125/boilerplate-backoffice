@@ -12,12 +12,11 @@ import { Category, CategoryFormValues } from '@/@types/category.type';
 import AutocompleteController from '@/components/base/Form/AutocompleteController';
 
 type Props = {
-    open: boolean,
     id?: string | null;
     onClose: () => void,
 }
 
-const CategoryFormModal: React.FC<Props> = ({ open, id, onClose }) => {
+const CategoryFormModal: React.FC<Props> = ({ id, onClose }) => {
     const [searchCategoryText, setSearchCategoryText] = useState<string>("");
     const [categories, setCategories] = useState<Category[]>([]);
     const { t } = useTranslation();
@@ -46,9 +45,7 @@ const CategoryFormModal: React.FC<Props> = ({ open, id, onClose }) => {
     const debouncedSearchValue = useDebounce(searchCategoryText, 500);
 
     useEffect(() => {
-        if (open) {
-            retrieveCategories(searchCategoryText);
-        }
+        retrieveCategories(searchCategoryText);
     }, [debouncedSearchValue, retrieveCategories, open]);
 
     const onSubmit = handleSubmit(async (data) => {
@@ -78,8 +75,8 @@ const CategoryFormModal: React.FC<Props> = ({ open, id, onClose }) => {
 
     return (
         <Modal
+            open
             title={t("category.newCategory")}
-            open={open}
             isLoading={isLoading}
             footer={(
                 <>

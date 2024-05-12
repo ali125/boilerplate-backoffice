@@ -12,12 +12,11 @@ import { useGetRolesQuery } from '@/redux/apiSlice/rolesSlice';
 import { convertQueryToString } from '@/utils/helpers/string';
 
 type Props = {
-    open: boolean,
     id?: string | null;
     onClose: () => void,
 }
 
-const UserFormModal: React.FC<Props> = ({ open, id, onClose }) => {
+const UserFormModal: React.FC<Props> = ({ id, onClose }) => {
     const { t } = useTranslation();
     const { data, isLoading } = useGetUserQuery({ id: id! }, { skip: !id });
     const { control, reset, handleSubmit } = useForm<UserFormValues>({ values: data  });
@@ -54,8 +53,8 @@ const UserFormModal: React.FC<Props> = ({ open, id, onClose }) => {
 
     return (
         <Modal
+            open
             title={t("user.newUser")}
-            open={open}
             isLoading={isLoading}
             footer={(
                 <>
