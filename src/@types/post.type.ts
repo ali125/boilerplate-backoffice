@@ -28,6 +28,7 @@ export type PostFormValues = {
   title: string;
   slug?: string;
   description: string;
+  isPublish: boolean;
   category?: { label: string; value: string };
   tags?: { label: string; value: string }[];
   image?: any;
@@ -37,7 +38,14 @@ export type PostFormBody = {
   title: string;
   slug?: string;
   description: string;
+  isPublish: string;
   categoryId?: string;
   tagIds?: string[];
   image?: any;
 };
+
+export enum PostStatus {
+  DRAFT = "draft",
+  PUBLISHED = "published",
+  BLOCKED = "blocked",
+}

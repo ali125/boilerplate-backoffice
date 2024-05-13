@@ -26,17 +26,16 @@ const baseQuery: BaseQueryFn<
       statusCode = result.error.status;
 
     if (statusCode === 401) {
-      console.log("sending refresh token");
+      // console.log("sending refresh token");
       // send refresh token to get new access token
       const refreshResult = await customFetchBaseQuery(
         {
-          url: "/auth/refreshAccessToken",
+          url: "auth/refreshAccessToken",
           method: "POST",
         },
         api,
         extraOptions
       );
-      console.log(refreshResult);
       if (refreshResult?.data) {
         // stire the new token
         api.dispatch(
@@ -59,7 +58,7 @@ const baseQuery: BaseQueryFn<
       return handleErrorResponse(
         api,
         statusCode,
-        (result.error?.data as any)?.data,
+        result.error?.data as any,
         silent
       );
     }

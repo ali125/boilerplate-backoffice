@@ -50,6 +50,7 @@ const Input: React.FC<InputProps> = props => {
       {...restProps}
     />
   );
+
   return isForm ? (
     <FormControl error={invalid} className={twMerge(classNames("w-full", className))} variant="standard">
       {label && <FormLabel htmlFor={id}>{label}</FormLabel>}

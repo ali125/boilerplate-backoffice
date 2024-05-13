@@ -108,11 +108,13 @@ const translation = {
     newPost: "new post",
     editPost: "edit post",
     slug: "slug",
+    enterSlug: "enter slug",
     category: "category",
     selectCategory: "select category",
     tag: "tag",
     selectTag: "select tag",
     enterDescription: "enter description",
+    isPublish: "is publish",
   },
   permission: {
     permissions: "permissions",

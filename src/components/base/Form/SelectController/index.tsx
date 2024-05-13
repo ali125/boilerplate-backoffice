@@ -9,7 +9,7 @@ export interface SelectControllerProps extends SelectProps {
   rules?: RegisterOptions;
 }
 
-const SelectController: React.FunctionComponent<SelectControllerProps> = ({ name, control, rules, defaultValue, ...props }) => {
+const SelectController: React.FunctionComponent<SelectControllerProps> = ({ name, control, rules, defaultValue, errorMessage, ...props }) => {
   return (
     <Controller
       control={control}
@@ -22,8 +22,8 @@ const SelectController: React.FunctionComponent<SelectControllerProps> = ({ name
           id={name}
           onBlur={onBlur}
           onChangeValue={onChange}
-          errorMessage={invalid ? (error as any).message : ""}
-          invalid={invalid}
+          errorMessage={(error as any)?.message || errorMessage || ""}
+          invalid={invalid || !!errorMessage}
           value={value}
         />
       )}

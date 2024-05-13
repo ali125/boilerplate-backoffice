@@ -1,8 +1,7 @@
-import { Handler } from "../handleErrorResponse";
-import { logOut } from "@/redux/authSlice";
+import { ErrorHandler } from "@/@types/error.type";
 
-const handle401: Handler = (api) => {
-  api.dispatch(logOut());
+const handle401: ErrorHandler = () => {
+  // api.dispatch(logOut());
 };
 
 export default handle401;

@@ -3,7 +3,6 @@ import classNames from "classnames";
 import { v4 as uuidv4 } from "uuid";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
-import CloudUpload from "@mui/icons-material/CloudUpload";
 import Close from "@mui/icons-material/Close";
 import { useTranslation } from "react-i18next";
 import FormLabel from "../FormLabel";
@@ -18,6 +17,7 @@ export interface FileSelectorProps {
     label?: string;
     sm?: boolean;
     id?: string;
+    accept?: string;
     name?: string;
     requiredInput?: boolean;
     errorMessage?: string;
@@ -39,6 +39,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({
     errorMessage,
     inputClassName,
     value,
+    accept,
     ...props
 }) => {
     const id = useMemo(() => props.id || props.name || uuidv4(), [props.id, props.name]);
@@ -85,6 +86,7 @@ const FileSelector: React.FC<FileSelectorProps> = ({
                         ref={inputRef}
                         id={id}
                         type="file"
+                        accept={accept}
                         className='hidden'
                         onChange={handleSelectFile}
                     />

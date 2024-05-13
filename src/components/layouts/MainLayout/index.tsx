@@ -7,7 +7,7 @@ const MainLayout: React.FC = () => {
   return (
     <main className="flex items-start gap-10 bg-gray-100 min-h-[100vh]">
       <Sidebar />
-      <section className='flex-1 pr-10'>
+      <section className='flex-1 pr-10 w-[calc(100%-16rem)]'>
         <Header />
         <Outlet />
       </section>

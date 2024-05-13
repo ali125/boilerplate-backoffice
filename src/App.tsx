@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector } from "@/redux/hooks"
 import i18n from "@/config/translation/i18n";
 import Router from "./router";
@@ -13,6 +15,7 @@ function App() {
   return (
     <>
       <Router />
+      <ToastContainer />
     </>
   )
 }

@@ -4,14 +4,12 @@ export const convertToFormData = (data: { [key: string]: any }) => {
   Object.entries(data).forEach(([key, item]) => {
     if (Array.isArray(item)) {
       item.forEach((val) => {
-        formData.append(`${key}[]`, val);
+        if (val) formData.append(`${key}[]`, val);
       });
-    } else {
+    } else if (item) {
       formData.append(`${key}`, item);
     }
   });
 
-  console.log("data", data);
-  console.log("formData", formData);
   return formData;
 };

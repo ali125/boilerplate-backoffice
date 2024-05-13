@@ -9,7 +9,7 @@ export interface InputControllerProps extends InputProps {
   rules?: RegisterOptions;
 }
 
-const InputController: React.FunctionComponent<InputControllerProps> = ({ name, control, rules, defaultValue, ...props }) => {
+const InputController: React.FunctionComponent<InputControllerProps> = ({ name, control, rules, defaultValue, errorMessage, ...props }) => {
   return (
     <Controller
       control={control}
@@ -22,8 +22,8 @@ const InputController: React.FunctionComponent<InputControllerProps> = ({ name, 
           id={name}
           onBlur={onBlur}
           onChangeValue={onChange}
-          errorMessage={invalid ? (error as any).message : ""}
-          invalid={invalid}
+          errorMessage={(error as any)?.message || errorMessage || ""}
+          invalid={invalid || !!errorMessage}
           value={value}
         />
       )}

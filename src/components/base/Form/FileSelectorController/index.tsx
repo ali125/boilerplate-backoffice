@@ -13,6 +13,7 @@ export const FileSelectorController: React.FC<FileSelectorControllerProps> = ({
   name,
   control,
   rules,
+  errorMessage,
   ...props
 }) => {
   return (
@@ -25,8 +26,8 @@ export const FileSelectorController: React.FC<FileSelectorControllerProps> = ({
           {...props}
           id={name}
           onChangeFile={onChange}
-          errorMessage={invalid ? (error as any).message : ""}
-          invalid={invalid}
+          errorMessage={(error as any)?.message || errorMessage || ""}
+          invalid={invalid || !!errorMessage}
           value={value}
         />
       )}
