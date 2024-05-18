@@ -64,8 +64,6 @@ const PostFormModal: React.FC<Props> = ({ id, onClose }) => {
 
     const errors = useMemo(() => (error as any)?.data, [error]);
 
-    console.log('errors', errors);
-
     return (
         <Modal
             open

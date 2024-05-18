@@ -16,6 +16,7 @@ import Users from '@/pages/Users';
 import Tags from '@/pages/Tags';
 import AccessRoute from '@/components/base/AccessRoute';
 import { PermissionModules } from '@/@types/permission.type';
+import Settings from '@/pages/Settings';
 
 const Router: React.FC = () => {
   return (
@@ -30,6 +31,7 @@ const Router: React.FC = () => {
             <Route path={browserRoutes.users} element={<AccessRoute Component={Users} module={PermissionModules.User} />}  />
             <Route path={browserRoutes.roles} element={<AccessRoute Component={Roles} module={PermissionModules.Role} />}  />
             <Route path={browserRoutes.permissions} element={<AccessRoute Component={Permissions} module={PermissionModules.Permission} />}  />
+            <Route path={browserRoutes.settings} element={<Settings />}  />
           </Route>
         </Route>
         <Route path={browserRoutes.signIn} element={<SignIn />} />

@@ -10,6 +10,7 @@ const translation = {
   },
   account: {
     profile: "profile",
+    changePassword: "change password",
     logout: "logout",
   },
   sidebar: {
@@ -51,6 +52,7 @@ const translation = {
     value: "value",
     settings: "settings",
     save: "save",
+    change: "change",
     close: "close",
 
     image: "image",
@@ -85,7 +87,16 @@ const translation = {
     enterRole: "enter role",
     password: "password",
     enterPassword: "enter password",
+    about: "about",
+    enterAbout: "enter about",
     creator: "creator",
+
+    currentPassword: "current password",
+    enterCurrentPassword: "enter current password",
+    newPassword: "new password",
+    enterNewPassword: "enter new password",
+    confirmPassword: "confirm password",
+    enterConfirmPassword: "enter confirm password",
   },
   category: {
     categories: "categories",
@@ -122,9 +133,15 @@ const translation = {
     action: "action",
   },
   fileSelector: {
+    select: "select",
     selectFile: "select file",
     oneFileSelected: "1 file selected",
     multiFileSelected: "{length} files selected",
+    upload: "upload",
+    editImage: "edit image",
+  },
+  setting: {
+    settings: "settings",
   },
   errors: {
     dataNotFound: "data not found",
