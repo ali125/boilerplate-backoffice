@@ -3,27 +3,25 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import InputController from '@/components/base/Form/InputController';
 import { createLocale } from '@/config/translation/i18n';
-import { ProfileFormValues } from '@/@types/auth.type';
-import { useUpdateProfileMutation } from '@/redux/apiSlice/authSlice';
-import { convertToFormData } from '@/utils/helpers/form';
+import { ChangePasswordFormValues, ChangePasswordFormBody } from '@/@types/auth.type';
+import { useChangePasswordMutation } from '@/redux/apiSlice/authSlice';
 import { showMessage } from '@/utils/helpers/showMessage';
 import Button from '@/components/base/Button';
 
 const ChangePasswordForm: React.FC = () => {
-    const { control, handleSubmit } = useForm<ProfileFormValues>();
+    const { control, handleSubmit } = useForm<ChangePasswordFormValues>();
     const { t } = useTranslation();
 
-    const [updateProfile, { error, isLoading: isSubmitting }] = useUpdateProfileMutation();
+    const [changePassword, { error, isLoading: isSubmitting }] = useChangePasswordMutation();
 
     const onSubmit = handleSubmit(async (data) => {
-        let body: any = { ...data };
-
-        if (data.avatar) {
-            body = convertToFormData({ ...body, avatar: data.avatar[0] });
-        }
+        const body: ChangePasswordFormBody = { 
+            currentPassword: data.currentPassword,
+            newPassword: data.newPassword
+        };
 
         try {
-            const response: any = await updateProfile({ body });
+            const response: any = await changePassword({ body });
             if (response?.data) {
                 showMessage('success', 'success')
             }
@@ -41,6 +39,7 @@ const ChangePasswordForm: React.FC = () => {
                 name="currentPassword"
                 type="password"
                 label={t("user.currentPassword")}
+                autoComplete='off'
                 placeholder={t("user.enterCurrentPassword")}
                 errorMessage={errors?.currentPassword?.[0]}
                 rules={{
@@ -51,21 +50,33 @@ const ChangePasswordForm: React.FC = () => {
                 control={control}
                 name="newPassword"
                 type="password"
+                autoComplete='off'
                 label={t("user.newPassword")}
                 placeholder={t("user.enterNewPassword")}
                 errorMessage={errors?.newPassword?.[0]}
                 rules={{
                     required: createLocale(t("errors.required"), { field: t("user.newPassword") }),
-                }}
+                    minLength: {
+                      value: 6,
+                      message: createLocale(t("errors.minLength"), { value: 6 })
+                    },
+                  }}
             />
             <InputController
                 control={control}
                 name="confirmPassword"
                 type="password"
+                autoComplete='off'
                 label={t("user.confirmPassword")}
                 placeholder={t("user.enterConfirmPassword")}
                 rules={{
                     required: createLocale(t("errors.required"), { field: t("user.confirmPassword") }),
+                    validate: (value: string, e) => {
+                        if (e.newPassword !== value) {
+                            return t("user.errorMatchConfirmPassword");
+                        }
+                        return true;
+                    }
                 }}
             />
 
@@ -76,4 +87,4 @@ const ChangePasswordForm: React.FC = () => {
     );
 }
 
-export default ChangePasswordForm
+export default ChangePasswordForm;

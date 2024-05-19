@@ -1,4 +1,5 @@
 import {
+  ChangePasswordFormBody,
   ProfileFormBody,
   ProfileResponse,
   RefreshTokenResponse,
@@ -41,6 +42,16 @@ const authApiSlice = apiSlice.injectEndpoints({
         invalidatesTags: [TagTypes.PROFILE],
       }
     ),
+    changePassword: builder.mutation<
+      ProfileResponse,
+      { body: ChangePasswordFormBody }
+    >({
+      query: ({ body }) => ({
+        url: "/auth/changePassword",
+        method: "POST",
+        body,
+      }),
+    }),
     logout: builder.mutation<void, void>({
       query: () => ({
         url: `/auth/logout`,
@@ -57,6 +68,7 @@ export const {
   useLazyGetUserRoleQuery,
   useGetProfileQuery,
   useUpdateProfileMutation,
+  useChangePasswordMutation,
 } = authApiSlice;
 
 export default authApiSlice;

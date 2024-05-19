@@ -97,6 +97,7 @@ const translation = {
     enterNewPassword: "enter new password",
     confirmPassword: "confirm password",
     enterConfirmPassword: "enter confirm password",
+    errorMatchConfirmPassword: "confirm password does not match",
   },
   category: {
     categories: "categories",

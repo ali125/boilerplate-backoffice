@@ -66,3 +66,14 @@ export type ProfileFormBody = {
   mobile?: string;
   avatar?: any;
 };
+
+export type ChangePasswordFormValues = {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+
+export type ChangePasswordFormBody = {
+  currentPassword: string;
+  newPassword: string;
+};
