@@ -22,7 +22,7 @@ const ProfileForm: React.FC = () => {
         let body: any = { ...data };
 
         if (data.avatar) {
-            body = convertToFormData({ ...body, avatar: data.avatar[0] });
+            body = convertToFormData({ ...body, avatar: data.avatar });
         }
 
         try {
@@ -51,7 +51,8 @@ const ProfileForm: React.FC = () => {
                 <div className='w-[17rem]'>
                     <ImageSelectorController
                         control={control}
-                        name="image"
+                        name="avatar"
+                        image={data?.avatarUrl ? `${import.meta.env.VITE_BASE_URL}${data?.avatarUrl}` : data?.avatarUrl}
                         imageClassName='max-w-full min-h-[18rem]'
                         wrapperClassName="relative max-w-full"
                         btnGroupClassNames='absolute bottom-0 p-2 left-0 bg-[rgba(0,0,0,0.6)] w-full'

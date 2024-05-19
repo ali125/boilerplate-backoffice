@@ -46,6 +46,7 @@ export type ProfileResponse = {
   blockedAt: string | null;
   role: RoleBaseType;
   fullName: string;
+  avatarUrl?: string | null;
   about: string | null;
 };
 

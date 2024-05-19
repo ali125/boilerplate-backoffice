@@ -49,13 +49,13 @@ const UserHeader: React.FC = () => {
             </IconButton>
             <Dropdown
                 isOpen={isOpen}
-                menuClassName="!w-auto min-w-[8rem]"
+                menuClassName="!w-auto min-w-[8rem] capitalize"
                 onClose={handleClose}
                 anchorRef={ref.current}
                 placement='bottom-start'
                 closeable={false}
                 menuList={[
-                    { id: "profile", label: t('account.profile'), url: "/profile", icon: <ManageAccounts /> },
+                    { id: "profile", label: t('account.profile'), url: browserRoutes.settings, icon: <ManageAccounts /> },
                     { id: "logout", label: t('account.logout'), onClick: handleLogout, icon: <Logout /> }
                 ]}
             />
