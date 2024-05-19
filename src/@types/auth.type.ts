@@ -5,7 +5,21 @@ export type SignInRequest = {
   email: string;
   password: string;
 };
+export type SignInFormValues = SignInRequest;
 export type SignInResponse = {
+  accessToken: string;
+};
+
+export type SignUpRequest = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+};
+export type SignUpFormValues = SignUpRequest & {
+  confirmPassword: string;
+};
+export type SignUpResponse = {
   accessToken: string;
 };
 

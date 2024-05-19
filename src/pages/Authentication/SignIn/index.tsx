@@ -1,3 +1,4 @@
+import { SignInFormValues } from '@/@types/auth.type';
 import Button from '@/components/base/Button';
 import InputController from '@/components/base/Form/InputController';
 import AuthLayout from '@/components/layouts/AuthLayout';
@@ -12,23 +13,15 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-type FormValues = {
-  email: string,
-  password: string
-}
-
 const SignIn: React.FC = () => {
-  const { control, handleSubmit } = useForm<FormValues>();
+  const { control, handleSubmit } = useForm<SignInFormValues>();
   const { t } = useTranslation();
   const navigation = useNavigate();
   const dispatch = useAppDispatch();
   const [login, {isLoading }] = useLoginMutation();
 
   const onSubmit = handleSubmit(async (data) => {
-      console.log(data)
-      console.log("submit")
-      const response = await login(data).unwrap();
-      console.log('response', response);
+      const response = await login({ body: data }).unwrap();
       if (response.accessToken) {
         localStorage.setItem(Storage_Keys.loggedIn, "true");
         dispatch(setAuthToken({ accessToken: response.accessToken }));
@@ -43,7 +36,6 @@ const SignIn: React.FC = () => {
           control={control}
           name="email"
           label={t("user.email")}
-          defaultValue="ali.mortazavi121@gmail.com"
           placeholder={t("user.enterEmail")}
           rules={{
             required: createLocale(t("errors.required"), { field: t("user.email") }),
@@ -58,7 +50,6 @@ const SignIn: React.FC = () => {
           control={control}
           name="password"
           type="password"
-          defaultValue="password"
           label={t("user.password")}
           placeholder={t("user.enterPassword")}
           rules={{
@@ -67,6 +58,9 @@ const SignIn: React.FC = () => {
         />
         
         <div className="flex items-end">
+          <NavLink to={browserRoutes.signUp} className="text-sky-700 font-medium mr-auto first-letter:uppercase">
+            {t('auth.signUp')}
+          </NavLink>
           <NavLink to={browserRoutes.forgotPassword} className="text-sky-700 font-medium ml-auto first-letter:uppercase">
             {t('auth.forgot')}
           </NavLink>

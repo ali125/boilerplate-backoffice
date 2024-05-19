@@ -5,6 +5,8 @@ import {
   RefreshTokenResponse,
   SignInRequest,
   SignInResponse,
+  SignUpRequest,
+  SignUpResponse,
   UserRoleResponse,
 } from "@/@types/auth.type";
 import apiSlice from ".";
@@ -12,11 +14,18 @@ import { TagTypes } from "@/utils/baseQuery/tagTypes";
 
 const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<SignInResponse, SignInRequest>({
-      query: ({ email, password }) => ({
+    login: builder.mutation<SignInResponse, { body: SignInRequest }>({
+      query: ({ body }) => ({
         url: `/auth/login`,
         method: "POST",
-        body: { email, password },
+        body,
+      }),
+    }),
+    register: builder.mutation<SignUpResponse, { body: SignUpRequest }>({
+      query: ({ body }) => ({
+        url: `/auth/register`,
+        method: "POST",
+        body,
       }),
     }),
     refreshAccessToken: builder.mutation<RefreshTokenResponse, void>({
@@ -63,6 +72,7 @@ const authApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useLoginMutation,
+  useRegisterMutation,
   useRefreshAccessTokenMutation,
   useLogoutMutation,
   useLazyGetUserRoleQuery,
