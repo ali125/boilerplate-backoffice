@@ -8,6 +8,8 @@ export type UserBaseType = {
   email: string;
   mobile: string | null;
   roleId: string;
+  avatarUrl?: string | null;
+  about: string | null;
   status: string;
   blockedAt: string | null;
   createdAt: string;

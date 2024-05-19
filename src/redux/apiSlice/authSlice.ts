@@ -1,8 +1,12 @@
 import {
   ChangePasswordFormBody,
+  ForgotPasswordRequest,
+  ForgotPasswordResponse,
   ProfileFormBody,
   ProfileResponse,
   RefreshTokenResponse,
+  ResetPasswordRequest,
+  ResetPasswordResponse,
   SignInRequest,
   SignInResponse,
   SignUpRequest,
@@ -24,6 +28,26 @@ const authApiSlice = apiSlice.injectEndpoints({
     register: builder.mutation<SignUpResponse, { body: SignUpRequest }>({
       query: ({ body }) => ({
         url: `/auth/register`,
+        method: "POST",
+        body,
+      }),
+    }),
+    forgotPassword: builder.mutation<
+      ForgotPasswordResponse,
+      { body: ForgotPasswordRequest }
+    >({
+      query: ({ body }) => ({
+        url: `/auth/forgot`,
+        method: "POST",
+        body,
+      }),
+    }),
+    resetPassword: builder.mutation<
+      ResetPasswordResponse,
+      { body: ResetPasswordRequest }
+    >({
+      query: ({ body }) => ({
+        url: `/auth/resetPassword`,
         method: "POST",
         body,
       }),
@@ -79,6 +103,8 @@ export const {
   useGetProfileQuery,
   useUpdateProfileMutation,
   useChangePasswordMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
 } = authApiSlice;
 
 export default authApiSlice;

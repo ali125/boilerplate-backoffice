@@ -8,6 +8,7 @@ import { browserRoutes } from '@/constants/routes';
 import { useLoginMutation } from '@/redux/apiSlice/authSlice';
 import { setAuthToken } from '@/redux/authSlice';
 import { useAppDispatch } from '@/redux/hooks';
+import Alert from '@mui/material/Alert';
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -18,7 +19,7 @@ const SignIn: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigate();
   const dispatch = useAppDispatch();
-  const [login, {isLoading }] = useLoginMutation();
+  const [login, { isLoading, error }] = useLoginMutation();
 
   const onSubmit = handleSubmit(async (data) => {
       const response = await login({ body: data }).unwrap();
@@ -31,6 +32,9 @@ const SignIn: React.FC = () => {
 
   return (
     <AuthLayout title={t('auth.signIn')} description={t('auth.signInDescription')}>
+      {(error as any)?.data?.statusCode === 400 && (
+        <Alert severity="error" className='first-letter:capitalize'>{t('auth.wrongEmailPassword')}</Alert>
+      )}
       <form className="flex flex-col gap-3" onSubmit={onSubmit}>
         <InputController
           control={control}

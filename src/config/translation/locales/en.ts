@@ -7,6 +7,9 @@ const translation = {
     signUpDescription: "please enter your information here to view details.",
     forgot: "forgot password",
     forgotDescription: "please enter your information here to view details.",
+    reset: "reset password",
+    resetDescription: "please enter your information here to view details.",
+    wrongEmailPassword: "email or password is wrong. please try again!",
   },
   account: {
     profile: "profile",

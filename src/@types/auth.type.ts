@@ -1,6 +1,7 @@
-import { PermissionActions } from "./permission.type";
+import { PermissionBaseType } from "./permission.type";
 import { RoleBaseType } from "./role.type";
 
+// ============= Sign In =============
 export type SignInRequest = {
   email: string;
   password: string;
@@ -10,6 +11,7 @@ export type SignInResponse = {
   accessToken: string;
 };
 
+// ============= Sign Up =============
 export type SignUpRequest = {
   firstName: string;
   lastName: string;
@@ -23,10 +25,12 @@ export type SignUpResponse = {
   accessToken: string;
 };
 
+// ============= Refresh Token =============
 export type RefreshTokenResponse = {
   accessToken: string;
 };
 
+// ============= User Role =============
 export type UserRoleResponse = {
   id: string;
   createdAt: string;
@@ -36,16 +40,10 @@ export type UserRoleResponse = {
   description: string | null;
   superAdmin: boolean;
   userId: string;
-  permissions: {
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    deletedAt: string | null;
-    module: string;
-    action: PermissionActions;
-  }[];
+  permissions: PermissionBaseType[];
 };
 
+// ============= Profile =============
 export type ProfileResponse = {
   id: string;
   createdAt: string;
@@ -81,13 +79,32 @@ export type ProfileFormBody = {
   avatar?: any;
 };
 
-export type ChangePasswordFormValues = {
-  currentPassword: string;
-  newPassword: string;
-  confirmPassword: string;
-};
-
+// ============= Change Passowrd =============
 export type ChangePasswordFormBody = {
   currentPassword: string;
   newPassword: string;
+};
+export type ChangePasswordFormValues = ChangePasswordFormBody & {
+  confirmPassword: string;
+};
+
+// ============= Forgot Password =============
+export type ForgotPasswordResponse = {
+  message: string;
+};
+export type ForgotPasswordRequest = {
+  email: string;
+};
+
+// ============= Reset Password =============
+export type ResetPasswordResponse = {
+  message: string;
+};
+export type ResetPasswordRequest = {
+  newPassword: string;
+  token: string;
+};
+export type ResetPasswordFormValues = {
+  newPassword: string;
+  confirmPassword: string;
 };

@@ -17,6 +17,7 @@ import Tags from '@/pages/Tags';
 import AccessRoute from '@/components/base/AccessRoute';
 import { PermissionModules } from '@/@types/permission.type';
 import Settings from '@/pages/Settings';
+import ResetPassword from '@/pages/Authentication/Reset';
 
 const Router: React.FC = () => {
   return (
@@ -37,6 +38,7 @@ const Router: React.FC = () => {
         <Route path={browserRoutes.signIn} element={<SignIn />} />
         <Route path={browserRoutes.signUp} element={<SignUp />} />
         <Route path={browserRoutes.forgotPassword} element={<Forgot />} />
+        <Route path={browserRoutes.resetPassword} element={<ResetPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
